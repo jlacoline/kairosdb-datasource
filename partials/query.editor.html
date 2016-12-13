@@ -2,7 +2,7 @@
   <div class="gf-form-inline">
     <div class="gf-form">
       <label class="gf-form-label query-keyword width-7"> Metric </label>
-      <input type="text" class="gf-form-input width-20"
+      <input type="text" class="gf-form-input width-24"
         ng-model="ctrl.target.metric"
         spellcheck="false"
         bs-typeahead="ctrl.suggestMetrics"
@@ -14,11 +14,6 @@
         ng-show="ctrl.target.errors.metric">
         <i class="fa fa-warning"></i>
       </a>
-    </div>
-    <div class="gf-form">
-      <label class="gf-form-label"> Alias </label>
-      <input type="text" class="gf-form-input" ng-model="ctrl.target.alias"
-      spellcheck='false' placeholder="alias" ng-blur="ctrl.targetBlur()">
       <label class="gf-form-label">
         &nbsp;Peak filter
         <input class="input-medium" type="checkbox" ng-model="ctrl.target.exOuter" ng-change="ctrl.targetBlur()">
@@ -284,6 +279,31 @@
           <i ng-hide="ctrl.target.isAggregatorValid" class="fa fa-remove"></i>
           <i ng-show="ctrl.target.isAggregatorValid" class="fa fa-plus-circle"></i>
         </a>
+      </div>
+    </div>
+    <div class="gf-form gf-form--grow"> 
+      <div class="gf-form-label gf-form-label--grow"/>
+    </div>
+  </div>
+
+  <!-- ALIAS -->
+  <div class="gf-form-inline">
+    <div class="gf-form">
+      <div class="gf-form-label query-keyword width-7">Alias</div>
+      <div class="gf-form-select-wrapper">
+        <select class="gf-form-input width-8 ng-pristine ng-valid ng-not-empty" ng-change="ctrl.targetBlur()" 
+          ng-model="ctrl.target.aliasMode" ng-options="o for o in ['default', 'custom']"> </select>
+      </div>
+      <input type="text" class="gf-form-input width-25" ng-model="ctrl.target.alias"
+        spellcheck='false' ng-blur="ctrl.targetBlur()" ng-readonly="ctrl.target.aliasMode!='custom'">
+      <div class="gf-form-label">
+        <i class="fa fa-question-circle ng-scope text-left" data-placement="right" data-html="true"
+           bs-tooltip="'Expression used for metric and group aliasing <br />
+           The following variables are available to differentiate the data groups: <br />
+           $_tag_group_[tag name] -> The tag\'s value in a tag groupby <br />
+           $_value_group_[n] -> The group number in the nth value groupby <br />
+           $_time_group_[n] -> The group number in the nth time groupby <br />'">
+        </i>
       </div>
     </div>
     <div class="gf-form gf-form--grow"> 
